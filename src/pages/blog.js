@@ -1,0 +1,52 @@
+import * as React from 'react'
+import { graphql } from 'gatsby'
+
+import Layout from '../components/Layout'
+import Post from '../components/Post'
+
+const Blog = ({ data }) => (
+  <Layout>
+    <h1>Blog</h1>
+    {data?.allMarkdownRemark?.edges?.map(post => {
+      const { title, author, date, description, path } = post.node.frontmatter
+
+      return (
+        <Post
+          title={title}
+          author={author}
+          date={date}
+          description={description}
+          key={`${date}__${title}`}
+          path={path}
+        />
+      )
+    })}
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea dignissimos
+      aut consequuntur aspernatur corrupti ratione, odit similique tenetur
+      accusantium, est nostrum esse minus iure voluptatum nihil cumque
+      blanditiis non? Odit.
+    </p>
+  </Layout>
+)
+
+export default Blog
+
+export const AllBlogsQuery = graphql`
+  query AllBlogPosts {
+    allMarkdownRemark {
+      edges {
+        node {
+          id
+          frontmatter {
+            date
+            title
+            description
+            author
+            path
+          }
+        }
+      }
+    }
+  }
+`
