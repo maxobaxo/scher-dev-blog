@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: maxobaxo/scher-blog
+  repo: maxobaxo/scher-dev-blog
   branch: master
 
 publish_mode: editorial_workflow
