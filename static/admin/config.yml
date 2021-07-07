@@ -1,7 +1,7 @@
 backend:
-  name: test-repo
-  # repo: maxobaxo/scher-blog
-  # branch: master
+  name: github
+  repo: maxobaxo/scher-blog
+  branch: master
 
 publish_mode: editorial_workflow
 
