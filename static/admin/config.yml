@@ -1,0 +1,27 @@
+backend:
+  name: test-repo
+  # repo: maxobaxo/scher-blog
+  # branch: master
+
+publish_mode: editorial_workflow
+
+media_folder: static/assets
+public_folder: assets
+
+collections:
+  - name: blog
+    label: Blog
+    folder: blog
+    create: true
+    media_folder: ''
+    public_folder: ''
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    path: '{{title}}/index'
+    preview: true
+    fields:
+      - { name: body, label: Body, widget: markdown }
+      - { name: date, label: Date, widget: datetime }
+      - { name: layout, label: Layout, widget: hidden, default: blog}
+      - { name: path, label: Path }
+      - { name: thumbnail, label: Featured Image, widget: image}
+      - { name: title, label: Title }
