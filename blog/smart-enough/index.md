@@ -1,7 +1,7 @@
 ---
 date: 2017-10-14T21:15:47.491Z
 layout: blog
-path: /blog/smart-enough
+path: smart-enough
 thumbnail: 1_q7eqkek2veyzvg0bmiqcdw.gif
 title: Smart Enough
 ---
