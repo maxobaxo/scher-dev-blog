@@ -1,7 +1,7 @@
 ---
 date: 2021-07-08T23:26:11.037Z
 layout: blog
-path: /just-do-it
+path: /blog/just-do-it
 thumbnail: https://www.vernacular.co.nz/wp-content/uploads/2018/02/nike_justdoit_00.jpg
 title: First Day at Nike
 ---
