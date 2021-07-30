@@ -2,7 +2,7 @@
 date: 2017-10-14T21:15:47.491Z
 layout: blog
 path: /blog/smart-enough
-thumbnail: 1_q7eqkek2veyzvg0bmiqcdw.gif
+thumbnail: https://miro.medium.com/max/1400/1*q7eqKEK2veyzvg0bmiqcDw.gif
 title: Smart Enough
 ---
 > “It is not that I’m so smart, But I stay with the questions much longer.” 
