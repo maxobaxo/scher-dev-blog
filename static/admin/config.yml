@@ -15,8 +15,7 @@ collections:
     create: true
     media_folder: ''
     public_folder: ''
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
-    path: '{{title}}/index'
+    path: 'src/pages/blog/{{title}}/index'
     preview: true
     fields:
       - { name: body, label: Body, widget: markdown }

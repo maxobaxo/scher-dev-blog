@@ -7,24 +7,22 @@ import './blogTemplate.css'
 
 export default function Template({ data }) {
   const post = data.markdownRemark
-  const { title, author, date } = post.frontmatter
+  const { html, frontmatter: { title, date } } = post;
   return (
     <Layout>
       <Link to='/blog'>Back to blogs</Link>
       <h1>{title}</h1>
-      <p>
-        Posted by {author} on {date}
-      </p>
-      <div dangerouslySetInnerHTML={{ __html: post.html }} />
+      <p>{date}</p>
+      {/* <img src={thumbnail} /> */}
+      <div dangerouslySetInnerHTML={{ __html: html }} />
     </Layout>
   )
 }
 
 export const postQuery = graphql`
-  query BlogPost($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
+  query BlogPost($pagePath: String!) {
+    markdownRemark(frontmatter: { path: { eq: $pagePath } }) {
       frontmatter {
-        author
         date
         title
         path
