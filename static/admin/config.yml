@@ -1,21 +1,18 @@
 backend:
   name: github
   repo: maxobaxo/scher-dev-blog
-  branch: master
+  branch: mother
 
-publish_mode: editorial_workflow
-
-media_folder: static/assets
-public_folder: assets
+media_folder: src/images
 
 collections:
   - name: blog
     label: Blog
-    folder: blog
+    folder: src/pages/blog
     create: true
     media_folder: ''
     public_folder: ''
-    path: 'src/pages/blog/{{title}}/index'
+    path: '{{title}}/index'
     preview: true
     fields:
       - { name: body, label: Body, widget: markdown }
