@@ -2,8 +2,9 @@
 date: 2021-07-08T23:26:11.037Z
 layout: blog
 path: just-do-it
-thumbnail: https://www.vernacular.co.nz/wp-content/uploads/2018/02/nike_justdoit_00.jpg
+featuredImage: '../../../images/justdoit.jpg'
 title: First Day at Nike
+description: Today, I start my first day on an engineering team at Nike. I'm still waiting for the other shoe to drop. Pinch me, please?
 ---
 Today, I start my first day on an engineering team at Nike. I'm still waiting for the other shoe to drop. Pinch me, please?
 

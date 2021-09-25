@@ -19,5 +19,5 @@ collections:
       - { name: date, label: Date, widget: datetime }
       - { name: layout, label: Layout, widget: hidden, default: blog}
       - { name: path, label: Path }
-      - { name: thumbnail, label: Featured Image, widget: image}
+      - { name: featuredImage, label: Featured Image, widget: image}
       - { name: title, label: Title }
