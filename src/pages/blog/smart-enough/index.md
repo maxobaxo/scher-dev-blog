@@ -2,8 +2,9 @@
 date: 2017-10-14T21:15:47.491Z
 layout: blog
 path: smart-enough
-thumbnail: 1_q7eqkek2veyzvg0bmiqcdw.gif
+featuredImage: ../../../images/codecode.jpg
 title: Smart Enough
+description: For those of us out there who never felt like the smartest kid in the room, it's all good.
 ---
 > “It is not that I’m so smart, But I stay with the questions much longer.” 
 

@@ -4,4 +4,13 @@
  * See: https://www.gatsbyjs.com/docs/ssr-apis/
  */
 
-// You can delete this file if you're not using it
+const React = require('react')
+const { ThemeProvider } = require('./src/context/theme')
+
+exports.wrapRootElement = ({ element }) => {
+  return (
+    <ThemeProvider>
+      {element}
+    </ThemeProvider>
+  )
+}

@@ -1,25 +1,42 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
-
+import { Box } from 'grommet'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Layout from '../../components/Layout'
-import Post from '../../components/Post'
+import PostPreview from '../../components/PostPreview'
 
-const Blog = ({ data }) => (
-  <Layout>
-    <h1>Blog</h1>
-    {data?.allMarkdownRemark?.edges?.map(post => {
-      const { title, author, date, description, path } = post.node.frontmatter
-      console.log('path::', path)
-      return (
-        <Post
-          title={title}
-          date={date}
-          description={description}
-          key={`${date}__${title}`}
-          path={path}
-        />
-      )
-    })}
+const Blog = ({ data, location }) => (
+  <Layout location={location}>
+    <Box
+      flex
+      wrap
+      direction='row'
+      pad='medium'
+      justify='around'
+      height={{ min: 'max-content' }}
+    >
+      {data?.allMarkdownRemark?.edges?.map(post => {
+        const {
+          title,
+          date,
+          description,
+          path,
+          featuredImage,
+        } = post.node.frontmatter
+        const image = getImage(featuredImage)
+        console.log(description)
+        return (
+          <PostPreview
+            title={title}
+            date={date}
+            description={description}
+            thumbnail={<GatsbyImage image={image} alt='generic illustration' />}
+            key={`${date}__${title}`}
+            path={path}
+          />
+        )
+      })}
+    </Box>
   </Layout>
 )
 
@@ -27,7 +44,7 @@ export default Blog
 
 export const AllBlogsQuery = graphql`
   query AllBlogPosts {
-    allMarkdownRemark {
+    allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC }) {
       edges {
         node {
           id
@@ -35,6 +52,12 @@ export const AllBlogsQuery = graphql`
             date
             title
             path
+            description
+            featuredImage {
+              childImageSharp {
+                gatsbyImageData(width: 300)
+              }
+            }
           }
         }
       }

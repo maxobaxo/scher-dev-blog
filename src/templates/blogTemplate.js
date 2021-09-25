@@ -1,23 +1,70 @@
 import * as React from 'react'
-import { graphql, Link } from 'gatsby'
-
+import { graphql } from 'gatsby'
+import { Anchor, Box, Heading, Markdown, Paragraph } from 'grommet'
+import { LinkPrevious } from 'grommet-icons'
+import styled from 'styled-components'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Layout from '../components/Layout'
+import { formatDate } from '../utils/datetime'
 
-import './blogTemplate.css'
-
-export default function Template({ data }) {
+const Template = ({ data }) => {
   const post = data.markdownRemark
-  const { html, frontmatter: { title, date } } = post;
+  const {
+    rawMarkdownBody,
+    frontmatter: { title, date, featuredImage },
+  } = post
+  console.log(featuredImage)
+  const image = getImage(featuredImage)
   return (
     <Layout>
-      <Link to='/blog'>Back to blogs</Link>
-      <h1>{title}</h1>
-      <p>{date}</p>
-      {/* <img src={thumbnail} /> */}
-      <div dangerouslySetInnerHTML={{ __html: html }} />
+      <Box pad='medium' height={{ min: 'max-content' }}>
+        <Anchor
+          icon={<LinkPrevious size='small' />}
+          href='/blog'
+          label='Back to blog'
+        />
+        <Heading level={1} margin={{ bottom: 'none' }}>
+          {title}
+        </Heading>
+        <Paragraph fill size='small'>
+          {formatDate(date)}
+        </Paragraph>
+        <GatsbyImage
+          image={image}
+          alt='generic illustration'
+          width='100%'
+          height='auto'
+        />
+        <StyledBox align='center' height={{ min: 'max-content' }}>
+          <Markdown
+            options={{
+              forceBlock: true,
+              forceWrapper: true,
+              wrapper: 'article',
+              overrides: {
+                p: {
+                  component: Paragraph,
+                },
+              },
+            }}
+          >
+            {rawMarkdownBody}
+          </Markdown>
+        </StyledBox>
+      </Box>
     </Layout>
   )
 }
+
+export default Template
+
+const StyledBox = styled(Box)`
+  & > div,
+  & > div p {
+    width: 100%;
+    max-width: unset;
+  }
+`
 
 export const postQuery = graphql`
   query BlogPost($pagePath: String!) {
@@ -25,9 +72,19 @@ export const postQuery = graphql`
       frontmatter {
         date
         title
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(
+              placeholder: BLURRED
+              formats: AUTO
+              layout: CONSTRAINED
+            )
+          }
+        }
         path
       }
       html
+      rawMarkdownBody
     }
   }
 `
