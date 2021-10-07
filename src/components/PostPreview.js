@@ -37,7 +37,6 @@ PostPreview.propTypes = {
   title: PropTypes.string,
   date: PropTypes.string,
   description: PropTypes.string,
-  date: PropTypes.string,
   path: PropTypes.string,
 }
 

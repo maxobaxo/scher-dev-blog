@@ -7,23 +7,102 @@ import {
   Heading,
   Layer,
   Paragraph,
+  Anchor,
   RadioButtonGroup,
 } from 'grommet'
-import { Close } from 'grommet-icons'
+import { Close, StatusGood, StatusWarning } from 'grommet-icons'
 import styled from 'styled-components'
 
 const TwoTruths = ({ setGameOpen }) => {
   const initialForm = {
     allergies: '',
     studio: '',
+    nonprofit: '',
   }
   const [form, setForm] = React.useState(initialForm)
+  const [formSubmitted, setFormSubmitted] = React.useState(false)
+  const [score, setScore] = React.useState({
+    value: 0,
+    status: '',
+    message: '',
+  })
+
+  React.useEffect(() => {
+    if (formSubmitted) {
+      scrollToBottom()
+    } else {
+      scrollToTop()
+    }
+  }, [formSubmitted])
+
+  const scrollToTop = () => {
+    const el = document.getElementById('form-title')
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  const scrollToBottom = () => {
+    const el = document.getElementById('button-box')
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  const handleValidate = () => {
+    let correct = 0
+
+    const correctAnswers = {
+      allergies: 'gluten',
+      studio: 'bros',
+      nonprofit: 'srf',
+    }
+
+    const total = Object.keys(form).length
+    for (const fieldName in form) {
+      if (form[fieldName] === correctAnswers[fieldName]) {
+        correct += 1
+      }
+    }
+
+    let status = ''
+    let message = ''
+    switch (correct) {
+      case 0:
+        status = 'critical'
+        message = 'Oof. Are we even friends? Try again, maybe?'
+        break
+      case 1:
+        status = 'critical'
+        message = '1/3, really? Study up, buttercup.'
+        break
+      case 2:
+        status = 'critical'
+        message = "You did better than some, but you're no BFF."
+        break
+      case 3:
+        status = 'ok'
+        message = "100%, stalker. You must've hacked my insta."
+        break
+      default:
+        break
+    }
+
+    setFormSubmitted(true)
+    setScore({ value: `${correct}/${total}`, status, message })
+  }
+
+  const handleReset = () => {
+    setFormSubmitted(false)
+    setScore(0)
+    setForm(initialForm)
+  }
 
   const handleChange = evt => {
     const {
       target: { name, value },
     } = evt
-    if (form[name]) {
+    if (formSubmitted) {
       return
     }
     const newForm = { ...form }
@@ -32,9 +111,8 @@ const TwoTruths = ({ setGameOpen }) => {
   }
 
   return (
-    <StyledLayer
+    <Layer
       animation='fadeIn'
-      full={false}
       position='center'
       modal={true}
       margin='none'
@@ -46,9 +124,15 @@ const TwoTruths = ({ setGameOpen }) => {
         icon={<Close />}
         onClick={() => setGameOpen(false)}
       />
-      <Box pad='medium'>
-        <Heading level={3}>How well do you know me?</Heading>
-        <Form onReset={() => setForm(initialForm)} validate='submit'>
+      <Box pad='medium' overflow='auto'>
+        <Heading id='form-title' level={3}>
+          How well do you know me?
+        </Heading>
+        <Form
+          onValidate={handleValidate}
+          onReset={handleReset}
+          validate='submit'
+        >
           <FormField
             id='allergies'
             name='allergies'
@@ -64,19 +148,61 @@ const TwoTruths = ({ setGameOpen }) => {
               }
               switch (value) {
                 case 'gluten':
-                  result.message = "I'm all about that bread"
+                  result.message = (
+                    <Box direction='row' align='center'>
+                      <StatusGood color='status-ok' />
+                      <Paragraph
+                        size='small'
+                        margin={{ left: 'small' }}
+                        color='status-ok'
+                      >
+                        I'm all about that bread, 'bout that bread.
+                      </Paragraph>
+                    </Box>
+                  )
                   result.status = 'info'
                   break
                 case 'nuts':
-                  result.message =
-                    "I'm convinced I'll be taken out by a pistachio"
-                  result.status = 'error'
+                  result.message = (
+                    <Box direction='row' align='center'>
+                      <StatusWarning color='status-critical' />
+                      <Paragraph
+                        size='small'
+                        margin={{ left: 'small' }}
+                        color='status-critical'
+                      >
+                        I'm convinced I'll be taken out by a pistachio.
+                      </Paragraph>
+                    </Box>
+                  )
                   break
                 case 'dairy':
-                  result.message = 'Milk will not do this body good'
-                  result.status = 'error'
+                  result.message = (
+                    <Box direction='row' align='center'>
+                      <StatusWarning color='status-critical' />
+                      <Paragraph
+                        size='small'
+                        margin={{ left: 'small' }}
+                        color='status-critical'
+                      >
+                        Milk will <em>not</em> do this body good.
+                      </Paragraph>
+                    </Box>
+                  )
                   break
                 default:
+                  result.message = (
+                    <Box direction='row' align='center'>
+                      <StatusWarning color='status-critical' />
+                      <Paragraph
+                        size='small'
+                        margin={{ left: 'small' }}
+                        color='status-critical'
+                      >
+                        You forgot to answer this question, pal.
+                      </Paragraph>
+                    </Box>
+                  )
                   break
               }
               return result
@@ -109,19 +235,62 @@ const TwoTruths = ({ setGameOpen }) => {
                 status: '',
               }
               switch (value) {
-                case 'think':
-                  result.message = 'You must not be thinking clearly'
-                  result.status = 'error'
-                  break
-                case 'warners':
-                  result.message = 'I was never really one of the bros'
+                case 'bros':
+                  result.message = (
+                    <Box direction='row' align='center'>
+                      <StatusGood color='status-ok' />
+                      <Paragraph
+                        margin={{ left: 'small' }}
+                        size='small'
+                        color='status-ok'
+                      >
+                        I was never really one of the bros.
+                      </Paragraph>
+                    </Box>
+                  )
                   result.status = 'info'
                   break
+                case 'think':
+                  result.message = (
+                    <Box direction='row' align='center'>
+                      <StatusWarning color='status-critical' />
+                      <Paragraph
+                        margin={{ left: 'small' }}
+                        size='small'
+                        color='status-critical'
+                      >
+                        You must not be <em>thinking</em> clearly
+                      </Paragraph>
+                    </Box>
+                  )
+                  break
                 case 'lionsgate':
-                  result.message = 'I ran with the pack for 8 years'
-                  result.status = 'error'
+                  result.message = (
+                    <Box direction='row' align='center'>
+                      <StatusWarning color='status-critical' />
+                      <Paragraph
+                        margin={{ left: 'small' }}
+                        size='small'
+                        color='status-critical'
+                      >
+                        I ran with the pack for 8 years.
+                      </Paragraph>
+                    </Box>
+                  )
                   break
                 default:
+                  result.message = (
+                    <Box direction='row' align='center'>
+                      <StatusWarning color='status-critical' />
+                      <Paragraph
+                        size='small'
+                        margin={{ left: 'small' }}
+                        color='status-critical'
+                      >
+                        You forgot to answer this question, pal.
+                      </Paragraph>
+                    </Box>
+                  )
                   break
               }
               return result
@@ -135,25 +304,128 @@ const TwoTruths = ({ setGameOpen }) => {
               onChange={handleChange}
               options={[
                 { label: 'Think Film', value: 'think' },
-                { label: 'Warner Bros.', value: 'warners' },
+                { label: 'Warner Bros.', value: 'bros' },
                 { label: 'Lionsgate', value: 'lionsgate' },
               ]}
             />
           </FormField>
+          <FormField
+            id='nonprofit'
+            name='nonprofit'
+            label={
+              <Paragraph margin='none'>
+                Which of these non-profits was founded by my mother?
+              </Paragraph>
+            }
+            validate={value => {
+              const result = {
+                message: '',
+                status: '',
+              }
+              switch (value) {
+                case 'srf':
+                  result.message = (
+                    <Box direction='row' align='center'>
+                      <StatusGood color='status-ok' />
+                      <Paragraph
+                        margin={{ left: 'small' }}
+                        size='small'
+                        color='status-ok'
+                      >
+                        Yes!{' '}
+                        <Anchor
+                          target='_blank'
+                          href='https://srfcure.org'
+                          label='Learn more here'
+                        />
+                        .
+                      </Paragraph>
+                    </Box>
+                  )
+                  result.status = 'info'
+                  break
+                case 'fake':
+                  result.message = (
+                    <Box direction='row' align='center'>
+                      <StatusWarning color='status-critical' />
+                      <Paragraph
+                        margin={{ left: 'small' }}
+                        size='small'
+                        color='status-critical'
+                      >
+                        You have chosen a fake non-profit. Shame.
+                      </Paragraph>
+                    </Box>
+                  )
+                  break
+                case 'justice':
+                  result.message = (
+                    <Box direction='row' align='center'>
+                      <StatusWarning color='status-critical' />
+                      <Paragraph
+                        margin={{ left: 'small' }}
+                        size='small'
+                        color='status-critical'
+                      >
+                        Incorrect, but I{' '}
+                        <Anchor
+                          target='_blank'
+                          href='https://www.charitynavigator.org/ein/521744337'
+                          label='hear'
+                        />{' '}
+                        they do great work.
+                      </Paragraph>
+                    </Box>
+                  )
+                  break
+                default:
+                  result.message = (
+                    <Box direction='row' align='center'>
+                      <StatusWarning color='status-critical' />
+                      <Paragraph
+                        size='small'
+                        margin={{ left: 'small' }}
+                        color='status-critical'
+                      >
+                        You forgot to answer this question, pal.
+                      </Paragraph>
+                    </Box>
+                  )
+                  break
+              }
+              return result
+            }}
+          >
+            <RadioButtonGroup
+              id='nonprofit'
+              name='nonprofit'
+              aria-labelledby='nonprofit'
+              value={form.nonprofit}
+              onChange={handleChange}
+              options={[
+                { label: 'Scher Thing Organization', value: 'fake' },
+                { label: 'Scleroderma Research Foundation', value: 'srf' },
+                { label: 'Institute for Justice', value: 'justice' },
+              ]}
+            />
+          </FormField>
           <Box justify='between' direction='row'>
-            <Button type='submit' label='Submit' />
-            <Button plain type='reset' label='Reset' />
+            {formSubmitted ? (
+              <Box id='button-box'>
+                <Paragraph color={`status-${score.status}`}>
+                  {score.message}
+                </Paragraph>
+                <Button type='reset' label='Reset' />
+              </Box>
+            ) : (
+              <Button type='submit' label='Submit' fill={false} />
+            )}
           </Box>
         </Form>
       </Box>
-    </StyledLayer>
+    </Layer>
   )
 }
-
-const StyledLayer = styled(Layer)`
-  position: relative;
-  max-width: 50%;
-`
 
 const CloseButton = styled(Button)`
   position: absolute;

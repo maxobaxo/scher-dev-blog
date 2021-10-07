@@ -13,8 +13,9 @@ const Template = ({ data }) => {
     rawMarkdownBody,
     frontmatter: { title, date, featuredImage },
   } = post
-  console.log(featuredImage)
+
   const image = getImage(featuredImage)
+
   return (
     <Layout>
       <Box pad='medium' height={{ min: 'max-content' }}>

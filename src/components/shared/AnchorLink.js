@@ -14,7 +14,7 @@ import { scrollToHash } from '../../utils/routing'
  * @param {string} label label for the link
  * @param {bool} active Indicates if the route for the given link is the current route
  */
-const Link = ({ page, hash, label, active, icon, ...rest }) => {
+const Link = ({ page, hash, label, active, icon }) => {
   const location = useLocation()
   const handleClick = evt => {
     evt.preventDefault()
@@ -29,11 +29,11 @@ const Link = ({ page, hash, label, active, icon, ...rest }) => {
   }
   return (
     <StyledBox align='center'>
-      <Anchor
+      <StyledAnchor
         label={!icon && label}
         icon={icon || null}
-        {...rest}
         onClick={handleClick}
+        pad='none'
       />
       {icon && (
         <Anchor onClick={handleClick}>
@@ -56,6 +56,10 @@ Link.defaultProps = {
   hash: '',
 }
 
+const StyledAnchor = styled(Anchor)`
+  padding: 0;
+`
+
 const StyledBox = styled(Box)`
   &:hover a {
     text-decoration: underline;
@@ -63,8 +67,6 @@ const StyledBox = styled(Box)`
 `
 
 const StyledLink = styled(Link)`
-  padding-bottom: 0;
-  padding-right: 0;
   & > a {
     text-decoration: ${props => (props.active ? 'underline' : 'inherit')};
   }
