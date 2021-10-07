@@ -8,9 +8,5 @@ const React = require('react')
 const { ThemeProvider } = require('./src/context/theme')
 
 exports.wrapRootElement = ({ element }) => {
-  return (
-    <ThemeProvider>
-      {element}
-    </ThemeProvider>
-  )
+  return <ThemeProvider>{element}</ThemeProvider>
 }

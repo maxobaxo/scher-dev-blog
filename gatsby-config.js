@@ -17,14 +17,15 @@ module.exports = {
             weights: ['700'],
           },
           {
-            family: 'Rubik Beastly',
-          },
-          {
             family: 'Roboto',
             weights: ['400'],
           },
           {
-            family: 'Press Start 2P',
+            family: 'Open Sans',
+            weight: ['400'],
+          },
+          {
+            family: 'Annie Use Your Telescope',
             weight: ['400'],
           },
         ],

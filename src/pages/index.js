@@ -25,28 +25,48 @@ const Home = ({ location }) => {
         id='about'
         height={{ min: 'max-content' }}
         align='center'
-        pad='medium'
+        pad='large'
+        background={{ color: 'background-back' }}
       >
-        <Card width='large' align='center' elevation='large'>
-          <CardHeader pad='medium' justify='center'>
-            <Heading level={2}>The Get-to-Know-Me Game</Heading>
+        <Card
+          width='large'
+          align='center'
+          elevation='large'
+          background={{ color: 'background' }}
+        >
+          <CardHeader
+            justify='center'
+            pad={{
+              bottom: 'none',
+              top: 'medium',
+              right: 'medium',
+              left: 'medium',
+            }}
+          >
+            <Heading level={2} margin={{ bottom: 'none' }}>
+              The Get-to-Know-Me Game
+            </Heading>
           </CardHeader>
           <CardBody pad='medium'>
             <Paragraph fill>
               In my twenties, I "accidentally" built a career selling and
               marketing movies, but it never felt quite right. So, I took the
               leap, and enrolled in a{' '}
-              <Anchor href='https://epicodus.com'>coding bootcamp</Anchor>. Best
-              career decision I ever made.
+              <Anchor href='https://epicodus.com' target='_blank'>
+                coding bootcamp
+              </Anchor>
+              . Best career decision I ever made.
             </Paragraph>
             <Paragraph fill>
               I'm currently a full stack Software Engineer at{' '}
-              <Anchor href='https://nike.com'>Nike</Anchor>, where I work with
-              React, Node, GraphQL, Jenkins, and AWS (S3, ECS, RDS). Would you
-              like to get to know me better?
+              <Anchor href='https://nike.com' target='_blank'>
+                Nike
+              </Anchor>
+              , where I work with React, Node, GraphQL, Jenkins, and AWS (S3,
+              ECS, RDS). Would you like to get to know me better?
             </Paragraph>
 
-            <Box align='center' pad='large' pad='medium'>
+            <Box align='center' pad='medium'>
               <Button label="Let's Play" onClick={() => setGameOpen(true)} />
               {gameOpen && <TwoTruths setGameOpen={setGameOpen} />}
             </Box>
@@ -60,27 +80,31 @@ const Home = ({ location }) => {
         height={{ min: 'max-content' }}
         margin={{ bottom: 'large' }}
       >
-        <Paragraph fill textAlign='center'>
-          Feel free to reach out! I'm always happy to connect and talk about the
-          wild world of web development
-        </Paragraph>
+        <Heading level={2}>Connect</Heading>
         <Nav direction='row'>
           <Anchor
             href='https://github.com/maxobaxo'
             icon={<Github size='large' />}
             size='large'
+            target='_blank'
           />
           <Anchor
             href='https://linkedin.com/in/maxscher'
             icon={<Linkedin size='large' />}
             size='large'
+            target='_blank'
           />
           <Anchor
             href='https://twitter.com/maxobaxo'
             icon={<Twitter size='large' />}
             size='large'
+            target='_blank'
           />
         </Nav>
+        <Paragraph fill textAlign='center'>
+          Feel free to reach out! I'm always happy to connect and talk about the
+          wild world of web development
+        </Paragraph>
       </Box>
     </Layout>
   )

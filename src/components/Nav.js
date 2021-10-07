@@ -20,28 +20,28 @@ import AnchorLink from '../components/shared/AnchorLink'
 
 const pages = [
   {
-    label: <Box pad={{ left: 'small' }}>About</Box>,
+    label: 'About',
     page: '/',
     href: '/#about',
     hash: '#about',
     icon: <User size='medium' />,
   },
   {
-    label: <Box pad={{ left: 'small' }}>Blog</Box>,
+    label: 'Blog',
     page: '/blog',
     href: '/blog',
     hash: '',
     icon: <Blog size='medium' />,
   },
   {
-    label: <Box pad={{ left: 'small' }}>Resume</Box>,
+    label: 'Resume',
     page: '/maxscher_resume_2021.pdf',
     href: '/maxscher_resume_2021.pdf',
     has: '',
     icon: <DocumentText size='medium' />,
   },
   {
-    label: <Box pad={{ left: 'small' }}>Connect</Box>,
+    label: 'Connect',
     page: '/',
     href: '/#contact',
     hash: '#contact',
@@ -57,6 +57,7 @@ const gravatarSrc =
 
 const Navigation = ({ location, ...rest }) => {
   const [isDark, toggleIsDark] = React.useContext(ThemeContext)
+  const responsive = React.useContext(ResponsiveContext)
 
   const menuItems = [
     ...pages,
@@ -71,45 +72,55 @@ const Navigation = ({ location, ...rest }) => {
   ]
 
   return (
-    <Header background={{ opacity: true }} pad='medium' {...rest}>
+    <Header
+      pad={
+        responsive === 'small'
+          ? {
+              top: 'small',
+              bottom: 'small',
+              right: 'medium',
+              left: 'medium',
+            }
+          : 'medium'
+      }
+      align='center'
+      elevation='small'
+      {...rest}
+    >
       <AnchorLink
         hash='#home'
         page='/'
-        icon={<Avatar src={isDark ? gravatarSrc : darkGravatarSrc} />}
+        icon={
+          <Avatar
+            src={isDark ? gravatarSrc : darkGravatarSrc}
+            border={{ color: 'brand', size: 'small' }}
+          />
+        }
         label=''
       />
-      <ResponsiveContext.Consumer>
-        {responsive =>
-          responsive === 'small' ? (
-            <>
-              <Menu
-                size='large'
-                items={menuItems}
-                dropProps={{
-                  align: { top: 'bottom', left: 'left' },
-                  elevation: 'medium',
-                }}
-              >
-                <MenuIcon />
-              </Menu>
-            </>
-          ) : (
-            <Nav direction='row'>
-              {pages.map((item, i) => (
-                <AnchorLink
-                  key={`${item.page}-${i}`}
-                  hash={item.hash}
-                  label={item.label}
-                  page={item.page}
-                  icon={item.icon}
-                  active={`${item.hash}` === `${location?.hash}`}
-                />
-              ))}
-              <CheckBox checked={isDark} toggle onChange={toggleIsDark} />
-            </Nav>
-          )
-        }
-      </ResponsiveContext.Consumer>
+      {responsive === 'small' ? (
+        <Menu
+          items={menuItems}
+          size='large'
+          dropProps={{ align: { top: 'bottom', right: 'left' } }}
+        >
+          <MenuIcon />
+        </Menu>
+      ) : (
+        <Nav direction='row'>
+          {pages.map((item, i) => (
+            <AnchorLink
+              key={`${item.page}-${i}`}
+              hash={item.hash}
+              label={item.label}
+              page={item.page}
+              icon={item.icon}
+              active={`${item.hash}` === `${location?.hash}`}
+            />
+          ))}
+          <CheckBox checked={isDark} toggle onChange={toggleIsDark} />
+        </Nav>
+      )}
     </Header>
   )
 }

@@ -12,7 +12,8 @@ const Blog = ({ data, location }) => (
       wrap
       direction='row'
       pad='medium'
-      justify='around'
+      gap='medium'
+      justify={data?.allMarkdownRemark?.edges.length < 3 ? 'center' : 'around'}
       height={{ min: 'max-content' }}
     >
       {data?.allMarkdownRemark?.edges?.map(post => {
@@ -24,7 +25,7 @@ const Blog = ({ data, location }) => (
           featuredImage,
         } = post.node.frontmatter
         const image = getImage(featuredImage)
-        console.log(description)
+
         return (
           <PostPreview
             title={title}
