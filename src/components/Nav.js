@@ -56,16 +56,16 @@ const gravatarSrc =
   '//s.gravatar.com/avatar/f07f2c4c091b1e417602c975cb623d90?s=80'
 
 const Navigation = ({ location, ...rest }) => {
-  const [isDark, toggleIsDark] = React.useContext(ThemeContext)
+  const { themeMode, setThemeMode } = React.useContext(ThemeContext)
   const responsive = React.useContext(ResponsiveContext)
 
   const menuItems = [
     ...pages,
     {
-      onClick: () => toggleIsDark(),
+      onClick: evt => setThemeMode(evt.target.checked ? 'dark' : 'light'),
       icon: (
         <Box pad='small'>
-          <CheckBox checked={isDark} toggle />
+          <CheckBox checked={themeMode === 'dark'} toggle />
         </Box>
       ),
     },
@@ -92,7 +92,7 @@ const Navigation = ({ location, ...rest }) => {
         page='/'
         icon={
           <Avatar
-            src={isDark ? gravatarSrc : darkGravatarSrc}
+            src={themeMode === 'dark' ? gravatarSrc : darkGravatarSrc}
             border={{ color: 'brand', size: 'small' }}
           />
         }
@@ -118,7 +118,13 @@ const Navigation = ({ location, ...rest }) => {
               active={`${item.hash}` === `${location?.hash}`}
             />
           ))}
-          <CheckBox checked={isDark} toggle onChange={toggleIsDark} />
+          <CheckBox
+            checked={themeMode === 'dark'}
+            toggle
+            onChange={evt =>
+              setThemeMode(evt.target.checked ? 'dark' : 'light')
+            }
+          />
         </Nav>
       )}
     </Header>

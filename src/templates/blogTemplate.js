@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, navigate } from 'gatsby'
 import { Anchor, Box, Heading, Markdown, Paragraph } from 'grommet'
 import { LinkPrevious } from 'grommet-icons'
 import styled from 'styled-components'
@@ -21,7 +21,7 @@ const Template = ({ data }) => {
       <Box pad='medium' height={{ min: 'max-content' }}>
         <Anchor
           icon={<LinkPrevious size='small' />}
-          href='/blog'
+          onClick={() => navigate('/blog')}
           label='Back to blog'
         />
         <Heading level={1} margin={{ bottom: 'none' }}>
