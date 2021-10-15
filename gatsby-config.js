@@ -4,10 +4,14 @@ module.exports = {
     description: `a blog site for Max Scher`,
     author: `@maxobaxo`,
     siteUrl: `https://www.scher.dev`,
+    lightTheme: 'grommet',
+    darkTheme: 'dark',
+    font: 'Roboto',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
+    `gatsby-plugin-styled-components`,
     {
       resolve: `gatsby-plugin-google-fonts-v2`,
       options: {

@@ -11,7 +11,7 @@ const { ThemeProvider } = require('./src/context/theme')
 const { scrollToHash } = require('./src/utils/routing')
 
 exports.wrapRootElement = ({ element }) => {
-  return <ThemeProvider>{element}</ThemeProvider>
+  return <ThemeProvider key='theme-provider-browser'>{element}</ThemeProvider>
 }
 
 exports.shouldUpdateScroll = ({
