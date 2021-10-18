@@ -43,7 +43,6 @@ const StyledBox = styled(Box)`
     props.responsive === 'small'
       ? `calc(100vh - 84px)`
       : `calc(100vh - 122px)`};
-  overflow-y: scroll;
 `
 
 export default Layout
