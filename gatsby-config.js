@@ -1,12 +1,21 @@
 module.exports = {
   siteMetadata: {
-    title: `Max Scher`,
-    description: `a blog site for Max Scher`,
-    author: `@maxobaxo`,
+    title: `Max Scher | Software Engineer`,
+    description: `a blog & bio site for Max Scher, a software engineer`,
+    author: {
+      name: 'Max Scher',
+      summary:
+        'is a full stack software engineer specializing in sophisticated web applications built with React and Node.JS',
+    },
     siteUrl: `https://www.scher.dev`,
     lightTheme: 'grommet',
     darkTheme: 'dark',
     font: 'Roboto',
+    social: {
+      twitter: 'maxobaxo',
+      github: 'maxobaxo',
+    },
+    email: 'max@scher.dev',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

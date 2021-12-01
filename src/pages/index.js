@@ -13,6 +13,7 @@ import {
 import { Github, Linkedin, Twitter } from 'grommet-icons'
 import Layout from '../components/Layout'
 import Hero from '../components/Hero'
+import Seo from '../components/Seo'
 import TwoTruths from '../components/TwoTruths'
 
 const Home = ({ location }) => {
@@ -20,6 +21,7 @@ const Home = ({ location }) => {
 
   return (
     <Layout location={location}>
+      <Seo title='Max Scher' />
       <Hero />
       <Box
         id='about'

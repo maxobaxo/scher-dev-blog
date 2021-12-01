@@ -4,9 +4,11 @@ import { Box } from 'grommet'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Layout from '../../components/Layout'
 import PostPreview from '../../components/PostPreview'
+import Seo from '../../components/Seo'
 
 const Blog = ({ data, location }) => (
   <Layout location={location}>
+    <Seo title='Max Scher | Blog' description='All blog posts' />
     <Box
       flex
       wrap
