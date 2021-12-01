@@ -32,6 +32,7 @@ const Seo = ({ description, lang, meta, title }) => {
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
+  const siteUrl = site.siteMetadata?.siteUrl || ''
 
   return (
     <Helmet
@@ -48,6 +49,18 @@ const Seo = ({ description, lang, meta, title }) => {
         {
           property: `og:title`,
           content: title,
+        },
+        {
+          property: `og:image`,
+          content: `${siteUrl}/scher-dev.ad-image.png`,
+        },
+        {
+          property: `og:image:width`,
+          content: '1600',
+        },
+        {
+          property: `og:image:height`,
+          content: '900',
         },
         {
           property: `og:description`,

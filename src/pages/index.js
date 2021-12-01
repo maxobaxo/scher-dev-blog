@@ -21,7 +21,7 @@ const Home = ({ location }) => {
 
   return (
     <Layout location={location}>
-      <Seo title='Max Scher' />
+      <Seo />
       <Hero />
       <Box
         id='about'
