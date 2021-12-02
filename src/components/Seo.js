@@ -43,6 +43,10 @@ const Seo = ({ description, lang, meta, title }) => {
       titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
       meta={[
         {
+          name: `og:url`,
+          content: window !== undefined ? window.location?.href : '',
+        },
+        {
           name: `description`,
           content: metaDescription,
         },
