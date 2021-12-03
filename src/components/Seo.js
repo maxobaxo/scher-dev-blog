@@ -44,7 +44,7 @@ const Seo = ({ description, lang, meta, title }) => {
       meta={[
         {
           name: `og:url`,
-          content: window !== undefined ? window.location?.href : '',
+          content: typeof window !== 'undefined' ? window.location?.href : '',
         },
         {
           name: `description`,
