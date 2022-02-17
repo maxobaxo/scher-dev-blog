@@ -2,9 +2,11 @@
 date: 2022-02-17T19:32:16.010Z
 layout: blog
 path: csharp-method-overloading
-featuredImage: bunnies_cups.jpeg
+featuredImage: husky-puppies-2-weeks-old-01.jpeg
 title: Method Overloading in C#
 ---
+Today, I'm writing about overloading. No, not cuteness overloading... Method overloading!
+
 When I took a position at Zapproved (I know, I didn't write a "first day at Zapproved" post, forgive me), I was excited to begin working with a strongly-typed backend language. My strengths and experience were mostly in JavaScript a la React & Node, with an emphasis on React and frontend work, so working with C#/.NET was bound to be a challenge, albeit an exciting one!
 
 Moving from functional to object oriented programming is quite the shift, and I'm learning a lot. I figured I'd document some of my learnings here so I can refer back to them later. Today, I'm writing about method overloading.
