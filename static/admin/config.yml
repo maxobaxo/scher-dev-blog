@@ -15,9 +15,11 @@ collections:
     path: '{{title}}/index'
     preview: true
     fields:
-      - { name: body, label: Body, widget: markdown }
+      - { name: title, label: Title }
       - { name: date, label: Date, widget: datetime }
       - { name: layout, label: Layout, widget: hidden, default: blog}
       - { name: path, label: Path }
       - { name: featuredImage, label: Featured Image, widget: image}
-      - { name: title, label: Title }
+      - { name: description, label: Description }
+      - { name: body, label: Body, widget: markdown }
+      
