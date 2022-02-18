@@ -25,7 +25,7 @@ When I got my first ticket at Zapproved, I was scouring the code, digging into c
 
 Coming from JavaScript, where I rarely utilized OOP, this concept was brand spankin' new. But also kind of interesting...
 
-```
+```csharp
 // An example of a class using method overloading
 public class MethodOverloader {
 
@@ -52,7 +52,7 @@ However, just because something's neat doesn't mean it's useful. What I've read 
 
 Let's say you're working with a numerical values, and you're never certain if they're going to be integers, doubles, or even strings. You'd be able to build methods to accommodate each parameter type, but always delivering a result based on the addition of numerical values.
 
-```
+```csharp
 // An example of a class using method overloading
 public class MethodOverloader {
 
@@ -67,6 +67,7 @@ public class MethodOverloader {
   }
 }
 ```
+
 If I know that I'm either getting two strings or two integers to work with, I can now use `MethodOverloader.add()` to reliably calculate the sum of the values.
 
 Hope this helped someone, but if not, it helped me!
