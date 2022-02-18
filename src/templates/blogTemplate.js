@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Layout from '../components/Layout'
 import { formatDate } from '../utils/datetime'
+import { defineCustomElements as deckDeckGoElement } from '@deckdeckgo/highlight-code/dist/loader'
+deckDeckGoElement()
 
 const Template = ({ data }) => {
   const post = data.markdownRemark

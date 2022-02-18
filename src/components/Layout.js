@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
   const location = useLocation()
   const responsive = React.useContext(ResponsiveContext)
   const { themeMode } = React.useContext(ThemeContext)
-
+  
   React.useEffect(() => {
     const { hash } = location
     let scrollTimeout = null
@@ -20,6 +20,7 @@ const Layout = ({ children }) => {
     }
     return () => clearTimeout(scrollTimeout)
   }, [location])
+
 
   return (
     <Grommet
