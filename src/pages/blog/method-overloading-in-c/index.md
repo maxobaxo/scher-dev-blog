@@ -25,7 +25,8 @@ When I got my first ticket at Zapproved, I was scouring the code, digging into c
 
 Coming from JavaScript, where I rarely utilized OOP, this concept was brand spankin' new. But also kind of interesting...
 
-```
+<deckgo-highlight-code language='csharp'>
+<code slot='code'>
 // An example of a class using method overloading
 public class MethodOverloader {
 
@@ -46,13 +47,15 @@ public class MethodOverloader {
     return a + b + c;
   }
 }
-```
+</code>
+</deckgo-highlight-code>
 
 However, just because something's neat doesn't mean it's useful. What I've read suggests that method overloading should only be used when you actually need two methods to perform the same task, using different parameters. I can imagine that method overloading might be helpful if you're consuming unreliable data. 
 
 Let's say you're working with a numerical values, and you're never certain if they're going to be integers, doubles, or even strings. You'd be able to build methods to accommodate each parameter type, but always delivering a result based on the addition of numerical values.
 
-```
+<deckgo-highlight-code language='csharp'>
+<code slot='code'>
 // An example of a class using method overloading
 public class MethodOverloader {
 
@@ -66,7 +69,8 @@ public class MethodOverloader {
     return Convert.ToInt32(a) + Convert.ToInt32(b);
   }
 }
-```
+</code>
+</deckgo-highlight-code>
 If I know that I'm either getting two strings or two integers to work with, I can now use `MethodOverloader.add()` to reliably calculate the sum of the values.
 
 Hope this helped someone, but if not, it helped me!
