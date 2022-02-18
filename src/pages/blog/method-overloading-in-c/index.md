@@ -26,7 +26,7 @@ When I got my first ticket at Zapproved, I was scouring the code, digging into c
 Coming from JavaScript, where I rarely utilized OOP, this concept was brand spankin' new. But also kind of interesting...
 
 ```csharp
-// An example of a class using method overloading
+// An example of an class using method overloading
 public class MethodOverloader {
 
   public int add(int a, int b)
