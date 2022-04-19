@@ -4,6 +4,7 @@ backend:
   branch: mother
 
 media_folder: src/images
+publish_mode: 'editorial_workflow'
 
 collections:
   - name: blog
@@ -14,7 +15,6 @@ collections:
     public_folder: ''
     path: '{{title}}/index'
     preview: true
-    publish_mode: 'editorial_workflow'
     fields:
       - { name: title, label: Title }
       - { name: date, label: Date, widget: datetime }
