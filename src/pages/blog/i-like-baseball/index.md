@@ -24,3 +24,15 @@ Since the github repo makes the data available via CSV files, I would need to bu
 
 There are many ways to go about this, but I'm going to utilize [AWS RDS](https://aws.amazon.com/rds/) for hosting the database. If you're unfamiliar, RDS is Amazon Web Services' database management system, which is basically a collection of services that simplify the setup, operation, and scaling of databases. It's arguably overkill for this project, but the CSV file data is arranged relationally, so I need a relational database solution and I've used RDS before. Hopefully, my familiarity will help expedite configuration and set up.
 
+Before setting up the DB instance, I need to create an IAM user that I'll use to connect to the RDS instance. It's best practice to use an IAM user rather than connecting using the root user. In order to create the user, I follow the [steps delineated here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SettingUp.html).
+
+### Creating a DB instance in RDS
+
+Now, I'm ready to create my DB instance in RDS. In the RDS console, I select the region dropdown menu in the upper right corner and pick the region where I want my DB instance hosted. I don't imagine my baseball stats website is going to go viral, but since I'm in Portland, I'll select `us-west-2` for Oregon. 
+
+In the navigation pane, I select "Databases" and then click the orange button reading "Create Database." In the creation window, I select "Easy Create" because I'm not afraid to admit I'm not an expert DB engineer. I'm choosing MySQL as the DB engine because I've used it before, and well I don't have a better explanation... like I just needlessly confessed... I'm not an expert DB engineer. I also select the 'free tier' for instance size because dollars and I've got kids to feed.  Next, I create master credentials for the DB instance and save them in 1password, and then I click the orange "Create Database" button.
+
+Hooray! I created a database in AWS. It's incredible... except, it's empty and I need to connect to it.
+
+### Connecting to the DB instance in RDS
+
