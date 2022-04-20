@@ -26,6 +26,10 @@ There are many ways to go about this, but I'm going to utilize [AWS RDS](https:/
 
 Before setting up the DB instance, I need to create an IAM user that I'll use to connect to the RDS instance. It's best practice to use an IAM user rather than connecting using the root user. In order to create the user, I follow the [steps delineated here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SettingUp.html).
 
+### Creating a Security Group
+
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SettingUp.html#CHAP_SettingUp.SecurityGroup
+
 ### Creating a DB instance in RDS
 
 Now, I'm ready to create my DB instance in RDS. In the RDS console, I select the region dropdown menu in the upper right corner and pick the region where I want my DB instance hosted. I don't imagine my baseball stats website is going to go viral, but since I'm in Portland, I'll select `us-west-2` for Oregon. 
