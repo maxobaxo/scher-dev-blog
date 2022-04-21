@@ -16,19 +16,16 @@ First things first, I need the data. While I love baseball, I certainly haven't 
 Since the github repo makes the data available via CSV files, I would need to build my own database to host the data and an API so my web app can fetch the data. Eventually, it'd be cool if I could set up some way to programmatically fetch the CSV files from the github repo and update my DB with any changes, since new data is continuously being added to the repo for each new year of data... but for now let's make that a stretch goal, ok? So, for now, our steps are...
 
 1. Create a SQL database.
-2. Populate the database with CSV files from the CBB github repo.
-3. Build an API to query the database.
-4. Build a frontend web app that utilizes the API (features TBD).
+2. Create a Web Server to communicate with the DB.
+3. Populate the database with CSV files from the CBB github repo.
+4. Build an API to query the database.
+5. Build a frontend web app that utilizes the API (features TBD).
 
 ## Create a SQL Database
 
 There are many ways to go about this, but I'm going to utilize [AWS RDS](https://aws.amazon.com/rds/) for hosting the database. If you're unfamiliar, RDS is Amazon Web Services' database management system, which is basically a collection of services that simplify the setup, operation, and scaling of databases. It's arguably overkill for this project, but the CSV file data is arranged relationally, so I need a relational database solution and I've used RDS before. Hopefully, my familiarity will help expedite configuration and set up.
 
-Before setting up the DB instance, I need to create an IAM user that I'll use to connect to the RDS instance. It's best practice to use an IAM user rather than connecting using the root user. In order to create the user, I follow the [steps delineated here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SettingUp.html).
-
-### Creating a Security Group
-
-https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SettingUp.html#CHAP_SettingUp.SecurityGroup
+Before setting up the DB instance, I need to create an IAM user that I'll use to connect to the RDS instance. It's best practice to use an IAM user rather than connecting using the root user. In order to create the user, I followed the [steps delineated here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SettingUp.html).
 
 ### Creating a DB instance in RDS
 
@@ -40,3 +37,17 @@ Hooray! I created a database in AWS. It's incredible... except, it's empty and I
 
 ### Connecting to the DB instance in RDS
 
+In order to connect to my new RDS instance, I can use a GUI like MySQL Workbench or mysql in the command line. Using the endpoint and port for my new RDS instance along with the master username and password, I test the connection.
+
+```
+mysql -h <rds_endpoint> -P <port> -u <username> -p
+```
+
+The only reason I am able to successfully connect to my database instance is because my RDS instance is configured to be publicly accessible, which AFAICT sort of defeats the purpose of a VPC. In order to properly secure our DB, we need to create a web server within the VPC, which gives it the ability to communicate easily with the DB, while also keeping the DB protected from external clients.
+
+## Create a Web Server to communicate with the DB
+
+
+WAIT WAIT -- I think I need to start over -- create a VPC with a public and a private subnet. Configure it properly for use to facilitate communication between ec2 instance and rds instance.
+
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateVPC.html
