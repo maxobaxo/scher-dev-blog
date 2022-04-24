@@ -70,6 +70,12 @@ module.exports = {
               lineNumbers: true
             }
           },
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 800,
+            },
+          }
         ],
       },
     },
