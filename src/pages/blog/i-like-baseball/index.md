@@ -27,6 +27,10 @@ There are many ways to go about this, but I'm going to utilize [AWS RDS](https:/
 
 Before setting up the DB instance, I need to create an IAM user that I'll use to connect to the RDS instance. It's best practice to use an IAM user rather than connecting using the root user. In order to create the user, I followed the [steps delineated here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SettingUp.html).
 
+Additionally, let's take a look at how this whole backend service is going to look. I'll be following a common pattern, utilizing a VPC with public subnet for the web server (where the api will be hosted) and a private subnet for the database.
+
+!["sample layout", src/images/con-vpc-sec-grp.png]
+
 ### Creating a DB instance in RDS
 
 Now, I'm ready to create my DB instance in RDS. In the RDS console, I select the region dropdown menu in the upper right corner and pick the region where I want my DB instance hosted. I don't imagine my baseball stats website is going to go viral, but since I'm in Portland, I'll select `us-west-2` for Oregon. 
