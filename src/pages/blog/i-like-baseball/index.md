@@ -29,7 +29,7 @@ Before setting up the DB instance, I need to create an IAM user that I'll use to
 
 Additionally, let's take a look at how this whole backend service is going to look. I'll be following a common pattern, utilizing a VPC with public subnet for the web server (where the api will be hosted) and a private subnet for the database.
 
-!["sample layout", src/images/con-vpc-sec-grp.png]
+![sample layout, /static/images/screen-shot-2022-04-24-at-9.25.47-am.png]
 
 ### Creating a DB instance in RDS
 
