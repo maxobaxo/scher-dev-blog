@@ -11,8 +11,8 @@ collections:
     label: Blog
     folder: src/pages/blog
     create: true
-    media_folder: ''
-    public_folder: ''
+    media_folder: 'static/images/uploads'
+    public_folder: 'images/uploads'
     path: '{{title}}/index'
     preview: true
     fields:
