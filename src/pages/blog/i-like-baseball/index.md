@@ -43,11 +43,14 @@ In order to connect to my new RDS instance, I can use a GUI like MySQL Workbench
 mysql -h <rds_endpoint> -P <port> -u <username> -p
 ```
 
-The only reason I am able to successfully connect to my database instance is because my RDS instance is configured to be publicly accessible, which AFAICT sort of defeats the purpose of a VPC. In order to properly secure our DB, we need to create a web server within the VPC, which gives it the ability to communicate easily with the DB, while also keeping the DB protected from external clients.
+The only reason I am able to successfully connect to my database instance is because my RDS instance is configured to be publicly accessible, which is not best practice. For security reasons, it makes sense for me to prevent exposing the database server to the internet. Instead, I'm going to create a VPC with a private and public subnet. This way, my web server can be accessed by the internet, but the database will not be. With the web server and the DB server hosted in the same VPC, the web server can easily access the DB server.
+
+I followed [this tutorial on AWS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateVPC.html) to set it up.
 
 ## Create a Web Server to communicate with the DB
 
 
-WAIT WAIT -- I think I need to start over -- create a VPC with a public and a private subnet. Configure it properly for use to facilitate communication between ec2 instance and rds instance.
+WAIT WAIT -- rewrite the order of things above. and recap more succinctly the setting up of the rds and ec2...
 
-https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateVPC.html
+NEXT: installing a web server on the new ec2 instance...
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateWebServer.html
