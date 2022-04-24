@@ -29,7 +29,7 @@ Before setting up the DB instance, I need to create an IAM user that I'll use to
 
 Additionally, let's take a look at how this whole backend service is going to look. I'll be following a common pattern, utilizing a VPC with public subnet for the web server (where the api will be hosted) and a private subnet for the database.
 
-![VPC HLD, ./images/vpc-hld.jpg]
+![High Level Design Image for VPC](images/uploads/con-vpc-sec-grp.png)
 
 ### Creating a DB instance in RDS
 
@@ -52,7 +52,6 @@ The only reason I am able to successfully connect to my database instance is bec
 I followed [this tutorial on AWS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateVPC.html) to set it up.
 
 ## Create a Web Server to communicate with the DB
-
 
 WAIT WAIT -- rewrite the order of things above. and recap more succinctly the setting up of the rds and ec2...
 
