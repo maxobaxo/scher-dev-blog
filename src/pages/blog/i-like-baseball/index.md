@@ -3,7 +3,7 @@ title: I Like Baseball
 date: 2022-04-19T04:49:38.332Z
 layout: blog
 path: baseball-api
-featuredImage: ask-history-who-invented-baseball-2.jpeg
+featuredImage: images/uploads/ask-history-who-invented-baseball-2.jpeg
 description: I thought it might be fun to build a baseball stats web
   application. Here's a look at how I went about it.
 ---
