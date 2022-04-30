@@ -25,15 +25,34 @@ Additionally, let's take a look at how this whole backend service is going to lo
 
 ![High Level Design Image for VPC](images/uploads/con-vpc-sec-grp.png)
 
-To accomplish setting up the VPC, subnets, VPC security groups, and the RDS & EC2 instances, I followed [this tutorial](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateVPC.html). After getting through the tutorial, I have  essentially configured the setup from the image above, but I stopped short of actually creating a web server on my EC2 instance, outlined [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateWebServer.html).
+To accomplish setting up the VPC, subnets, VPC security groups, and the RDS & EC2 instances, I followed bits and pieces of [this tutorial](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateVPC.html). Here's a recap of the important bits:
 
-### Creating a DB instance in RDS
+1. Create a VPC. Ensure there are two VPC subnets; 1 public for the web server, 2 private for the database. This way the internet can access the web server, but not the database; only the web server will be able to access the database since they're in the same VPC.
+2. Create VPC security groups for your VPC subnets.
+  - 1 public for the web server; establish inbound rules for the group (http for the internet and ssh for developer access.
+  - 1 private for the database; establish one inbound rule - mysql/aurora for the web server to access the database.
+3. Create a DB subnet group for the 2 VPC subnets; this will allow me to specify a particular VPC subnet when creating a DB instance in RDS.
+4. Create a database instance in RDS
+  - MySQL
+  - Free Tier
+  - Save username/password for later use
+  - VPC: Choose the VPC from step 1
+  - Subnet Group: Choose the one created in step 3
+  - VPC Security Group: Choose the private one created in step 2
+  - Enable database authentication with password
+5. Create a web server / Launch an EC2 instance
+  - Amazon Linux AMI
+  - t2.micro instance type
+  - Network: Choose the VPC created in step 1
+  - Subnet: Choose the public subnet created in step 1
+  - Auto-Assign Public IP: Choose Enable
+  - Storage/Tags: Default
+  - Security Group: Choose the public group created in step 2
+  - Create a new key pair, and save for later use
 
-Now, I'm ready to create my DB instance in RDS. In the RDS console, I select the region dropdown menu in the upper right corner and pick the region where I want my DB instance hosted. I don't imagine my baseball stats website is going to go viral, but since I'm in Portland, I'll select `us-west-2` for Oregon. 
+At this point, I have essentially configured the setup from the image above, but I stopped short of actually creating a web server on my EC2 instance, outlined [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateWebServer.html).
 
-In the navigation pane, I select "Databases" and then click the orange button reading "Create Database." In the creation window, I select "Easy Create" because I'm not afraid to admit I'm not an expert DB engineer. I'm choosing MySQL as the DB engine because I've used it before, and well I don't have a better explanation... like I just needlessly confessed... I'm not an expert DB engineer. I also select the 'free tier' for instance size because dollars and I've got kids to feed.  Next, I create master credentials for the DB instance and save them in 1password, and then I click the orange "Create Database" button.
-
-Hooray! I created a database in AWS. It's incredible... except, it's empty and I need to connect to it.
+----BELOW IS TEMPORARY-----
 
 ### Connecting to the DB instance in RDS
 
