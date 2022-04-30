@@ -50,7 +50,16 @@ To accomplish setting up the VPC, subnets, VPC security groups, and the RDS & EC
   - Security Group: Choose the public group created in step 2
   - Create a new key pair, and save for later use
 
-At this point, I have essentially configured the setup from the image above, but I stopped short of actually creating a web server on my EC2 instance, outlined [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateWebServer.html).
+At this point, I have essentially configured the setup from the image above, but I stopped short of actually creating a web server on my EC2 instance, outlined [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateWebServer.html). Then, I ssh'd into my new ec2 instance using the key pair I created in during the RDS instance creation. Let's say I named my key-pair PEM file `admin.pem` and the public IP of my ec2 instance is `54.86.78.721` then I access the web server with the following command.
+
+```$ ssh -i admin.pem ec2-user@54.86.78.721```
+
+Now that I've successfully access my web server via SSH, I need to configure the ec2 instance so that it can access my RDS instance. 
+
+----SHOULD I USE NODE.JS OR PHP FOR MY API WEB SERVER----
+
+- Do I need to install a mysql client to connect to my db instance and import data or can I build something in Node.js to accomplish this?
+- Does it make sense to have a mysql cli client on this web server so (in addition to any node backend api connecting to the db) I can access the DB directly in the command line?
 
 ----BELOW IS TEMPORARY-----
 
