@@ -83,12 +83,12 @@ Then, I need to `exit` and reconnect to confirm permissions were set. After reco
 
 Next, I need to modify the `apache` group's permissions for the web server:]
 
-```
+<deckgo-highlight-go>
 $ sudo chown -R ec2-user:apache /var/www
 $ sudo chmod 2775 /var/www
 $ find /var/www -type d -exec sudo chmod 2775 {} \;
 $ find /var/www -type f -exec sudo chmod 0664 {} \;
-```
+</deckgo-highlight-go>
 
 Now, my `ec2-user` along with other members of the `apache` group should be able to add, modify, and delete files on the web server. Additionally, the LAMP stack I installed should allow me to manually connect to my RDS instance from this EC2 instance:
 
