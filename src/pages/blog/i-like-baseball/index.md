@@ -90,7 +90,7 @@ Now, my `ec2-user` along with other members of the `apache` group should be able
 
 ...and I enter the rds password I saved a while back, and voila...
 
-![MySQL CLI Prompt](images/uploads/screen-shot-2022-04-30-at-7.57.17-pm.png)
+![MySQL CLI Prompt](images/uploads/mysql-cli-prompt.jpg)
 
 ----SHOULD I USE NODE.JS OR PHP FOR MY API WEB SERVER----
 
