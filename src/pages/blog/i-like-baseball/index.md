@@ -54,7 +54,41 @@ At this point, I have essentially configured the setup from the image above, but
 
 ```$ ssh -i admin.pem ec2-user@54.86.78.721```
 
-Now that I've successfully access my web server via SSH, I need to configure the ec2 instance so that it can access my RDS instance. 
+Now that I've successfully access my web server via SSH, I add my own public SSH ey to the .ssh/authorized_keys file so I don't need to use the `admin.pem` file every time I connect. Now, I need to configure the EC2 instance so that it can access my RDS instance. 
+
+## Set up the API on the Web Server
+
+A cursory search for articles on building APIs on an EC2 instance to communicate with an RDS instance reveals there are myriad strategies for accomplishing this part of the process. For example, I could build it with PHP, Node.JS, or Python. I have zero experience with Python, and while we are dealing with baseball statistics, I don't think w'll be doing any calculations so intense that Python will serve us better than the others. I've worked with both Node.JS and PHP (a la Laravel) before, but I want to stretch my object-oriented programming muscles a little, so PHP it is!
+
+Let's configure the EC2 instance by installing some extra software:
+
+```
+$ sudo yum update -y
+$ sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+$ sudo yum install -y httpd
+$ sudo systemctl start httpd
+$ sudo systemctl enable httpd
+```
+Then, we need to set file permissions for our web server so ec2-user can access/modify them
+
+```$ sudo usermod -a -G apache ec2-user```
+
+Then, I need to `exit` and reconnect to confirm permissions were set. After reconnecting, run the command `groups`, and I should see output like this: `ec2-user adm wheel apache systemd-journal`.
+
+Next, I need to modify the `apache` group's permissions for the web server:]
+
+```
+$ sudo chown -R ec2-user:apache /var/www
+$ sudo chmod 2775 /var/www
+$ find /var/www -type d -exec sudo chmod 2775 {} \;
+$ find /var/www -type f -exec sudo chmod 0664 {} \;
+```
+
+Now, my `ec2-user` along with other members of the `apache` group should be able to add, modify, and delete files on the web server. Additionally, the LAMP stack I installed should allow me to manually connect to my RDS instance from this EC2 instance:
+
+```mysql -h <rds endpoint> -u <rds username> -p```
+
+...and I enter the rds password I saved a while back, and voila
 
 ----SHOULD I USE NODE.JS OR PHP FOR MY API WEB SERVER----
 
