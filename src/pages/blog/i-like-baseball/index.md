@@ -56,7 +56,7 @@ At this point, I have essentially configured the setup from the image above, but
 
 Now that I've successfully access my web server via SSH, I add my own public SSH ey to the .ssh/authorized_keys file so I don't need to use the `admin.pem` file every time I connect. Now, I need to configure the EC2 instance so that it can access my RDS instance. 
 
-## Set up the API on the Web Server
+### Set up the API on the Web Server
 
 A cursory search for articles on building APIs on an EC2 instance to communicate with an RDS instance reveals there are myriad strategies for accomplishing this part of the process. For example, I could build it with PHP, Node.JS, or Python. I have zero experience with Python, and while we are dealing with baseball statistics, I don't think w'll be doing any calculations so intense that Python will serve us better than the others. I've worked with both Node.JS and PHP (a la Laravel) before, but I want to stretch my object-oriented programming muscles a little, so PHP it is!
 
@@ -86,32 +86,15 @@ $ find /var/www -type f -exec sudo chmod 0664 {} \;
 
 Now, my `ec2-user` along with other members of the `apache` group should be able to add, modify, and delete files on the web server. Additionally, the LAMP stack I installed should allow me to manually connect to my RDS instance from this EC2 instance:
 
-```mysql -h <rds endpoint> -u <rds username> -p```
+```mysql -h <rds_endpoint> -u <rds_username> -p```
 
-...and I enter the rds password I saved a while back, and voila...
+...and I enter the rds password I saved a while back, and voila. I'm connected.
 
 ![MySQL CLI Prompt](images/uploads/mysql-cli-prompt.jpg)
 
-----SHOULD I USE NODE.JS OR PHP FOR MY API WEB SERVER----
+It's important to note that I'm able to connect because I'm running mysql from the web server within the same VPC as the DB instance. If I try the same command from my local development machine, I will have issues.
 
-- Do I need to install a mysql client to connect to my db instance and import data or can I build something in Node.js to accomplish this?
-- Does it make sense to have a mysql cli client on this web server so (in addition to any node backend api connecting to the db) I can access the DB directly in the command line?
+![MySQL Connection Error](images/uploads/mysql-cli-error.jpg)
 
-----BELOW IS TEMPORARY-----
+### Build Basic PHP API and deploy to EC2 Instance
 
-### Connecting to the DB instance in RDS
-
-In order to connect to my new RDS instance, I can use a GUI like MySQL Workbench or mysql in the command line. Using the endpoint and port for my new RDS instance along with the master username and password, I test the connection.
-
-```
-mysql -h <rds_endpoint> -P <port> -u <username> -p
-```
-
-The only reason I am able to successfully connect to my database instance is because my RDS instance is configured to be publicly accessible, which is not best practice. For security reasons, it makes sense for me to prevent exposing the database server to the internet. Instead, I'm going to create a VPC with a private and public subnet. This way, my web server can be accessed by the internet, but the database will not be. With the web server and the DB server hosted in the same VPC, the web server can easily access the DB server.
-
-## Create a Web Server to communicate with the DB
-
-WAIT WAIT -- rewrite the order of things above. and recap more succinctly the setting up of the rds and ec2...
-
-NEXT: installing a web server on the new ec2 instance...
-https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateWebServer.html
