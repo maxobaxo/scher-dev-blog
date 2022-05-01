@@ -29,30 +29,35 @@ To accomplish setting up the VPC, subnets, VPC security groups, and the RDS & EC
 
 1. Create a VPC. Ensure there are two VPC subnets; 1 public for the web server, 2 private for the database. This way the internet can access the web server, but not the database; only the web server will be able to access the database since they're in the same VPC.
 2. Create VPC security groups for your VPC subnets.
-  - 1 public for the web server; establish inbound rules for the group (http for the internet and ssh for developer access.
-  - 1 private for the database; establish one inbound rule - mysql/aurora for the web server to access the database.
+
+* 1 public for the web server; establish inbound rules for the group (http for the internet and ssh for developer access.
+* 1 private for the database; establish one inbound rule - mysql/aurora for the web server to access the database.
+
 3. Create a DB subnet group for the 2 VPC subnets; this will allow me to specify a particular VPC subnet when creating a DB instance in RDS.
 4. Create a database instance in RDS
-  - MySQL
-  - Free Tier
-  - Save username/password for later use
-  - VPC: Choose the VPC from step 1
-  - Subnet Group: Choose the one created in step 3
-  - VPC Security Group: Choose the private one created in step 2
-  - Enable database authentication with password
+
+* MySQL
+* Free Tier
+* Save username/password for later use
+* VPC: Choose the VPC from step 1
+* Subnet Group: Choose the one created in step 3
+* VPC Security Group: Choose the private one created in step 2
+* Enable database authentication with password
+
 5. Create a web server / Launch an EC2 instance
-  - Amazon Linux AMI
-  - t2.micro instance type
-  - Network: Choose the VPC created in step 1
-  - Subnet: Choose the public subnet created in step 1
-  - Auto-Assign Public IP: Choose Enable
-  - Storage/Tags: Default
-  - Security Group: Choose the public group created in step 2
-  - Create a new key pair, and save for later use
+
+* Amazon Linux AMI
+* t2.micro instance type
+* Network: Choose the VPC created in step 1
+* Subnet: Choose the public subnet created in step 1
+* Auto-Assign Public IP: Choose Enable
+* Storage/Tags: Default
+* Security Group: Choose the public group created in step 2
+* Create a new key pair, and save for later use
 
 At this point, I have essentially configured the setup from the image above, but I stopped short of actually creating a web server on my EC2 instance, outlined [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateWebServer.html). Then, I ssh'd into my new ec2 instance using the key pair I created in during the RDS instance creation. Let's say I named my key-pair PEM file `admin.pem` and the public IP of my ec2 instance is `54.86.78.721` then I access the web server with the following command.
 
-```$ ssh -i admin.pem ec2-user@54.86.78.721```
+`$ ssh -i admin.pem ec2-user@54.86.78.721`
 
 Now that I've successfully access my web server via SSH, I add my own public SSH ey to the .ssh/authorized_keys file so I don't need to use the `admin.pem` file every time I connect. Now, I need to configure the EC2 instance so that it can access my RDS instance. 
 
@@ -69,9 +74,10 @@ $ sudo yum install -y httpd
 $ sudo systemctl start httpd
 $ sudo systemctl enable httpd
 ```
+
 Then, we need to set file permissions for our web server so ec2-user can access/modify them
 
-```$ sudo usermod -a -G apache ec2-user```
+`$ sudo usermod -a -G apache ec2-user`
 
 Then, I need to `exit` and reconnect to confirm permissions were set. After reconnecting, run the command `groups`, and I should see output like this: `ec2-user adm wheel apache systemd-journal`.
 
@@ -86,7 +92,7 @@ $ find /var/www -type f -exec sudo chmod 0664 {} \;
 
 Now, my `ec2-user` along with other members of the `apache` group should be able to add, modify, and delete files on the web server. Additionally, the LAMP stack I installed should allow me to manually connect to my RDS instance from this EC2 instance:
 
-```mysql -h <rds_endpoint> -u <rds_username> -p```
+`mysql -h <rds_endpoint> -u <rds_username> -p`
 
 ...and I enter the rds password I saved a while back, and voila. I'm connected.
 
@@ -97,4 +103,3 @@ It's important to note that I'm able to connect because I'm running mysql from t
 ![MySQL Connection Error](images/uploads/mysql-cli-error.jpg)
 
 ### Build Basic PHP API and deploy to EC2 Instance
-
