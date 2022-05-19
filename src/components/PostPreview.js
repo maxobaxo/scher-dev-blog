@@ -16,7 +16,8 @@ const PostPreview = ({ title, date, description, path, thumbnail }) => (
   <Card
     height={{ min: 'max-content ' }}
     width={{ min: 'auto', max: '500px' }}
-    margin={{ right: 'small', left: 'small', bottom: 'large' }}
+    margin={{ right: 'xsmall', left: 'xsmall', bottom: 'large' }}
+    onClick={() => navigate(`/blog/${path}`)}
   >
     {thumbnail}
     <CardHeader pad='medium'>
