@@ -13,10 +13,8 @@ const Blog = ({ data, location }) => (
       flex
       wrap
       direction='row'
-      pad='medium'
-      gap='medium'
+      pad={{ top: 'large', bottom: 'medium', right: 'small', left: 'small' }}
       justify={data?.allMarkdownRemark?.edges.length < 3 ? 'center' : 'around'}
-      height={{ min: 'max-content' }}
     >
       {data?.allMarkdownRemark?.edges?.map(post => {
         const {
@@ -58,7 +56,10 @@ export const AllBlogsQuery = graphql`
             description
             featuredImage {
               childImageSharp {
-                gatsbyImageData(width: 300)
+                gatsbyImageData(
+                  height: 169,
+                  layout: CONSTRAINED
+                )
               }
             }
           }

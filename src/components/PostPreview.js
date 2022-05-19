@@ -16,7 +16,7 @@ const PostPreview = ({ title, date, description, path, thumbnail }) => (
   <Card
     height={{ min: 'max-content ' }}
     width={{ min: 'auto', max: '500px' }}
-    margin={{ bottom: 'large' }}
+    margin={{ right: 'small', left: 'small', bottom: 'large' }}
   >
     {thumbnail}
     <CardHeader pad='medium'>

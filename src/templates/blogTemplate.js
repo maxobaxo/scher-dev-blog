@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { graphql, navigate } from 'gatsby'
-import { Anchor, Box, Heading, Markdown, Paragraph } from 'grommet'
+import { Anchor, Heading, Markdown, Page, PageContent, Paragraph } from 'grommet'
 import { LinkPrevious } from 'grommet-icons'
 import styled from 'styled-components'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
@@ -20,25 +20,25 @@ const Template = ({ data }) => {
 
   return (
     <Layout>
-      <Box pad='medium' height={{ min: 'max-content' }}>
-        <Anchor
+      <Page kind="narrow" pad={{ top: 'large', bottom: 'small' }}>
+        <StyledPageContent>
+          <Anchor
           icon={<LinkPrevious size='small' />}
           onClick={() => navigate('/blog')}
           label='Back to blog'
-        />
-        <Heading level={1} margin={{ bottom: 'none' }}>
-          {title}
-        </Heading>
-        <Paragraph fill size='small'>
-          {formatDate(date)}
-        </Paragraph>
-        <GatsbyImage
-          image={image}
-          alt='generic illustration'
-          width='100%'
-          height='auto'
-        />
-        <StyledBox align='center' height={{ min: 'max-content' }}>
+          />
+          <Heading level={1} margin={{ bottom: 'none' }}>
+            {title}
+          </Heading>
+          <Paragraph size='small' style={{ fontStyle: 'italic' }}>
+            {formatDate(date)}
+          </Paragraph>
+          <FeaturedImage
+            image={image}
+            alt='generic illustration'
+            width='100%'
+            height='auto'
+          />
           <Markdown
             options={{
               forceBlock: true,
@@ -46,26 +46,44 @@ const Template = ({ data }) => {
               wrapper: 'article',
               overrides: {
                 p: {
-                  component: Paragraph,
+                  component: StyledParagraph,
                 },
               },
             }}
           >
             {rawMarkdownBody}
           </Markdown>
-        </StyledBox>
-      </Box>
+        </StyledPageContent>
+          
+      </Page>
     </Layout>
   )
 }
 
 export default Template
 
-const StyledBox = styled(Box)`
-  & > div,
-  & > div p {
-    width: 100%;
-    max-width: unset;
+const StyledPageContent = styled(PageContent)`
+  blockquote {
+    border-left: 2px solid #d9d9d9;
+    padding-left: 1rem;
+    margin-left: 0;
+  }
+  @media screen and (min-width: 768px) {
+    blockquote {
+      margin-left: 1.5rem;
+    }
+  }
+`
+
+const StyledParagraph = styled(Paragraph)`
+  max-width: none;
+`
+
+const FeaturedImage = styled(GatsbyImage)`
+  img {
+    border-radius: 0.875rem;
+    max-height: 500px;
+    max-width: 1100px;
   }
 `
 
@@ -80,7 +98,8 @@ export const postQuery = graphql`
             gatsbyImageData(
               placeholder: BLURRED
               formats: AUTO
-              layout: CONSTRAINED
+              layout: FULL_WIDTH
+              height: 169
             )
           }
         }

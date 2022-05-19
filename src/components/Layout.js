@@ -1,15 +1,16 @@
 import * as React from 'react'
-import { Box, Footer, Grommet, ResponsiveContext, Text } from 'grommet'
+import { Footer, Grommet, Text } from 'grommet'
 import { useLocation } from '@reach/router'
-import styled from 'styled-components'
 import Nav from './Nav'
 import { lightTheme, darkTheme } from '../constants/theme'
 import { ThemeContext } from '../context/theme'
 import { scrollToHash } from '../utils/routing'
+import { defineCustomElements as deckDeckGoElement } from '@deckdeckgo/highlight-code/dist/loader'
+
+deckDeckGoElement()
 
 const Layout = ({ children }) => {
   const location = useLocation()
-  const responsive = React.useContext(ResponsiveContext)
   const { themeMode } = React.useContext(ThemeContext)
   
   React.useEffect(() => {
@@ -29,21 +30,12 @@ const Layout = ({ children }) => {
       theme={themeMode === 'dark' ? darkTheme : lightTheme}
     >
       <Nav location={location} elevation='small' />
-      <StyledBox as='main' flex pad='small' responsive={responsive}>
-        {children}
-        <Footer pad='medium' justify='center'>
-          <Text textAlign='center'>&copy; Max Scher</Text>
-        </Footer>
-      </StyledBox>
+      {children}
+      <Footer pad='medium' justify='center'>
+        <Text textAlign='center'>&copy; Max Scher</Text>
+      </Footer>
     </Grommet>
   )
 }
-
-const StyledBox = styled(Box)`
-  height: ${props =>
-    props.responsive === 'small'
-      ? `calc(100vh - 84px)`
-      : `calc(100vh - 122px)`};
-`
 
 export default Layout
