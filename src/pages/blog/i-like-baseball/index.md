@@ -104,4 +104,8 @@ It's important to note that I'm able to connect because I'm running mysql from t
 
 ![MySQL Connection Error](images/uploads/mysql-cli-error.jpg)
 
-### Build Basic PHP API and deploy to EC2 Instance
+### Build Basic API and deploy to EC2 Instance
+
+Since the majority of my experience is in Javascript (React & Node), I figured I'd build the API in Node.js using (this tutorial)[https://www.freecodecamp.org/news/rest-api-design-best-practices-build-a-rest-api/] from free code camp.
+
+I do need to do some things a little differently to actually integrate with my RDS instance.
